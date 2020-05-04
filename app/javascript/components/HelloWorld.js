@@ -1,43 +1,63 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { CircularProgress } from '@material-ui/core'
-import Container from "./lv1/Container"
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Typography,
+  makeStyles,
+  Grid,
+  LinearProgress,
+} from '@material-ui/core';
+import Container from './lv1/Container';
+
 class HelloWorld extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       error: null,
-      greeting: ''
-    }
+      greeting: '',
+    };
   }
   componentDidMount() {
     fetch(this.props.url)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           this.setState({
-            greeting: result.greeting
-          })
+            greeting: result.greeting,
+          });
         },
-        error => {
+        (error) => {
           this.setState({
-            error
+            error,
           });
         }
-    )
+      );
   }
   render() {
     const { greeting } = this.state;
     return (
       <Container>
-        <CircularProgress />
-        Greeting: {greeting}
+        <Grid
+          container
+          direction="column"
+          alignContent="center"
+          justify="space-around"
+          spacing={2}
+        >
+          <Grid item>
+            <Typography variant="h2" color="primary">
+              Greeting: {greeting}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <LinearProgress />
+          </Grid>
+        </Grid>
       </Container>
     );
   }
 }
 
 HelloWorld.propTypes = {
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
 };
-export default HelloWorld
+export default HelloWorld;

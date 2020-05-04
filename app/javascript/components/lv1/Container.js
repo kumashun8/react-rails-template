@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, ThemeProvider } from '@material-ui/styles';
+import theme from '../../lib/theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +17,7 @@ const Container = (props) => {
   const { children } = props;
   const classes = useStyles();
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <React.Fragment>
         <div className={classes.root}>{children}</div>
       </React.Fragment>
