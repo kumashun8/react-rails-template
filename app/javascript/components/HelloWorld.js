@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { CircularProgress } from '@material-ui/core'
+import Container from "./lv1/Container"
 class HelloWorld extends React.Component {
   constructor(props) {
     super(props)
@@ -28,10 +29,10 @@ class HelloWorld extends React.Component {
   render() {
     const { greeting } = this.state;
     return (
-      <React.Fragment>
+      <Container>
         <CircularProgress />
         Greeting: {greeting}
-      </React.Fragment>
+      </Container>
     );
   }
 }
