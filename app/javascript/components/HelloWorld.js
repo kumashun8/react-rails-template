@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, LinearProgress } from '@material-ui/core';
 import Container from './lv1/Container';
+import { pooring } from '../lib/api';
 
 class HelloWorld extends React.Component {
   constructor(props) {
@@ -9,46 +10,53 @@ class HelloWorld extends React.Component {
     this.state = {
       error: null,
       greeting: '',
+      loading: true,
     };
   }
 
+  startAction() {
+    this.setState({ loading: true });
+  }
+  finishAction() {
+    this.setState({ loading: false });
+  }
+  successAction(greeting) {
+    this.setState({ greeting: greeting });
+  }
+  failuerAction(error) {
+    this.setState({ error: error });
+  }
+  hoge() {
+    console.log('hoge');
+  }
+
   componentDidMount() {
-    fetch(this.props.url)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            greeting: result.greeting,
-          });
-        },
-        (error) => {
-          this.setState({
-            error,
-          });
-        }
-      );
+    this.hoge;
+    //
   }
 
   render() {
-    const { greeting } = this.state;
+    const { greeting, loading } = this.state;
 
     return (
       <Container>
         <Grid
           container
-          direction="column"
-          alignContent="center"
-          justify="space-around"
+          direction='column'
+          alignContent='center'
+          justify='space-around'
           spacing={2}
         >
-          <Grid item>
-            <Typography variant="h2" color="primary">
-              Greeting: {greeting}
+          <Grid itemScope>
+            <Typography variant='h2' color='primary'>
+              {loading ? 'loading ...' : greeting}
             </Typography>
           </Grid>
-          <Grid item>
-            <LinearProgress />
-          </Grid>
+          {loading && (
+            <Grid item>
+              <LinearProgress />
+            </Grid>
+          )}
         </Grid>
       </Container>
     );
@@ -58,4 +66,5 @@ class HelloWorld extends React.Component {
 HelloWorld.propTypes = {
   url: PropTypes.string.isRequired,
 };
+
 export default HelloWorld;
