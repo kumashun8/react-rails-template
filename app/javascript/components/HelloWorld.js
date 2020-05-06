@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Typography,
-  makeStyles,
-  Grid,
-  LinearProgress,
-} from '@material-ui/core';
+import { Typography, Grid, LinearProgress } from '@material-ui/core';
 import Container from './lv1/Container';
 
 class HelloWorld extends React.Component {
@@ -16,6 +11,7 @@ class HelloWorld extends React.Component {
       greeting: '',
     };
   }
+
   componentDidMount() {
     fetch(this.props.url)
       .then((res) => res.json())
@@ -32,8 +28,10 @@ class HelloWorld extends React.Component {
         }
       );
   }
+
   render() {
     const { greeting } = this.state;
+
     return (
       <Container>
         <Grid
