@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, LinearProgress } from '@material-ui/core';
 import Container from './lv1/Container';
-import { pooring } from '../lib/api';
+import { pooring, apply } from '../lib/api';
 
 class HelloWorld extends React.Component {
   constructor(props) {
     super(props);
+    this.startAction = this.startAction.bind(this);
+    this.finishAction = this.finishAction.bind(this);
+    this.successAction = this.successAction.bind(this);
+    this.failuerAction = this.failuerAction.bind(this);
+    this.hello = this.hello.bind(this);
     this.state = {
       error: null,
       greeting: '',
@@ -20,19 +25,26 @@ class HelloWorld extends React.Component {
   finishAction() {
     this.setState({ loading: false });
   }
-  successAction(greeting) {
-    this.setState({ greeting: greeting });
+  successAction(response) {
+    console.log(response);
+    this.setState({ greeting: response.greeting });
   }
   failuerAction(error) {
     this.setState({ error: error });
   }
-  hoge() {
-    console.log('hoge');
+  hello(name) {
+    console.log('Hello ', name);
   }
 
   componentDidMount() {
-    this.hoge;
-    //
+    // apply(this.hello);
+    pooring({
+      startAction: this.startAction,
+      finishAction: this.finishAction,
+      successAction: this.successAction,
+      failuerAction: this.failuerAction,
+      url: this.props.url,
+    });
   }
 
   render() {

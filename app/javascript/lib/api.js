@@ -12,9 +12,16 @@ export function execHttpGet(props) {
 // 定期的に GET リクエストを発行する
 export function pooring(props) {
   const { startAction, finishAction, interval } = props;
-  setInterval(() => {
-    startAction();
-    execHttpGet(props);
-    finishAction();
-  }, interval);
+  setInterval(
+    () => {
+      startAction();
+      execHttpGet(props);
+      finishAction();
+    },
+    interval ? interval : 5000
+  );
+}
+
+export function apply(func) {
+  func('hoge!!!');
 }
