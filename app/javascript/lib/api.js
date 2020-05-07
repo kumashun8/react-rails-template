@@ -9,6 +9,20 @@ export function execHttpGet(props) {
     );
 }
 
+// fetch メソッドを使って POST リクエストを発行する
+export function execHttpPost(props) {
+  const { url, body, successAction, failuerAction } = props;
+  fetch(url, {
+    method: 'POST',
+    body: body,
+  })
+    .then(res => res.json())
+    .then(
+      result => successAction(result),
+      error => failuerAction(error)
+    );
+}
+
 // 定期的 (interval ミリ秒ごと) に GET リクエストを発行する
 export function pooring(props) {
   const { startAction, finishAction, interval } = props;
