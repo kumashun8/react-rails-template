@@ -9,7 +9,7 @@ export function execHttpGet(props) {
     );
 }
 
-// 定期的に GET リクエストを発行する
+// 定期的 (interval ミリ秒ごと) に GET リクエストを発行する
 export function pooring(props) {
   const { startAction, finishAction, interval } = props;
   setInterval(
@@ -20,8 +20,4 @@ export function pooring(props) {
     },
     interval ? interval : 5000
   );
-}
-
-export function apply(func) {
-  func('hoge!!!');
 }

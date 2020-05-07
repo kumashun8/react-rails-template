@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid, LinearProgress } from '@material-ui/core';
 import Container from './lv1/Container';
-import { pooring, apply } from '../lib/api';
+import { pooring } from '../lib/api';
 
 class HelloWorld extends React.Component {
   constructor(props) {
@@ -13,8 +13,10 @@ class HelloWorld extends React.Component {
     this.failuerAction = this.failuerAction.bind(this);
     this.hello = this.hello.bind(this);
     this.state = {
+      response: {
+        greeting: '',
+      },
       error: null,
-      greeting: '',
       loading: true,
     };
   }
@@ -25,19 +27,19 @@ class HelloWorld extends React.Component {
   finishAction() {
     this.setState({ loading: false });
   }
-  successAction(response) {
-    console.log(response);
-    this.setState({ greeting: response.greeting });
+  successAction(res) {
+    console.log(res);
+    this.setState({
+      response: {
+        greeting: res.greeting,
+      },
+    });
   }
   failuerAction(error) {
     this.setState({ error: error });
   }
-  hello(name) {
-    console.log('Hello ', name);
-  }
 
   componentDidMount() {
-    // apply(this.hello);
     pooring({
       startAction: this.startAction,
       finishAction: this.finishAction,
@@ -48,7 +50,7 @@ class HelloWorld extends React.Component {
   }
 
   render() {
-    const { greeting, loading } = this.state;
+    const { response, loading } = this.state;
 
     return (
       <Container>
@@ -61,7 +63,7 @@ class HelloWorld extends React.Component {
         >
           <Grid itemScope>
             <Typography variant='h2' color='primary'>
-              {loading ? 'loading ...' : greeting}
+              {loading ? 'loading ...' : response.greeting}
             </Typography>
           </Grid>
           {loading && (
